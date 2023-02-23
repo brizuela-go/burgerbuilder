@@ -13,24 +13,28 @@ const IngredientForm = () => {
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
+
     const data = {
       name,
       quantity,
       icon,
     };
-    const res = await axios.post(
-      "https://burgerbuilder-two.vercel.app/api/ingredients",
-      data
-    );
 
-    if (res.status === 201) {
-      toast.success(`Ingredient ${icon} ${name} added successfully!`);
-      Router.reload();
-    } else {
-      toast.error(
-        `Error adding ingredient ${icon} ${name}! Error: ${res.data.message}`
-      );
-    }
+    toast.promise(
+      axios.post("https://burgerbuilder-two.vercel.app/api/ingredients", data),
+      {
+        loading: `Adding ingredient: ${icon} ${name}...`,
+        success: (data) => {
+          console.log(data);
+          Router.reload();
+          return `Ingredient with name: ${icon} ${name} added!`;
+        },
+        error: (err) => {
+          console.log(err);
+          return `${err}`;
+        },
+      }
+    );
 
     setName("");
     setQuantity(0);
