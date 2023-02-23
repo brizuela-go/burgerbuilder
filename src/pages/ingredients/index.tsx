@@ -5,7 +5,7 @@ import Link from "next/link";
 import React from "react";
 
 export async function getStaticProps() {
-  const res = await fetch("http://localhost:3000/api/ingredients");
+  const res = await fetch("/api/ingredients");
   const ingredients = await res.json();
 
   return {

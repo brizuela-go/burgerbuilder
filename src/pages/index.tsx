@@ -8,10 +8,10 @@ import Link from "next/link";
 import HamburgerCard from "../components/HamburgerCard";
 
 export async function getStaticProps() {
-  const res = await axios.get("http://localhost:3000/api/burgers");
+  const res = await axios.get("/api/burgers");
   const burgers = await res.data;
 
-  const res2 = await axios.get("http://localhost:3000/api/ingredients");
+  const res2 = await axios.get("/api/ingredients");
   const ingredients = await res2.data;
 
   return {
