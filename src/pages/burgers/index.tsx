@@ -4,7 +4,7 @@ import HamburgerForm from "burger/components/HamburgerForm";
 import Head from "next/head";
 
 export async function getStaticProps() {
-  const res2 = await fetch("/api/ingredients");
+  const res2 = await fetch("https://burgerbuilder.vercel.app/api/ingredients");
   const ingredients = await res2.json();
 
   return {
