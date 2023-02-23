@@ -23,13 +23,17 @@ const IngredientForm = () => {
       data
     );
 
-    toast.promise(res.data, {
-      loading: `Ingredient with ${icon} ${name} is being added...`,
-      success: `Ingredient with ${icon} ${name} added successfully!`,
-      error: `Error adding ingredient with ${icon} ${name}! Error: ${res.data.message}}`,
-    });
+    if (res.status === 201) {
+      toast.success(`Ingredient ${icon} ${name} added successfully!`);
+      Router.reload();
+    } else {
+      toast.error(
+        `Error adding ingredient ${icon} ${name}! Error: ${res.data.message}`
+      );
+    }
 
     setName("");
+    setQuantity(0);
     setIcon("");
   };
 
