@@ -21,17 +21,10 @@ const IngredientForm = () => {
       "https://burgerbuilder-two.vercel.app/api/ingredients",
       data
     );
+
     if (res.status === 201) {
-      alert("Ingredient created!");
-      Router.push("/");
-    }
-
-    if (res.status === 500) {
-      alert(`Error: ${res.data.message}`);
-    }
-
-    if (res.status === 400) {
-      alert(`Error: ${res.data.message}`);
+      alert(`Ingredient ${icon} ${name} added!`);
+      Router.reload;
     }
   };
 
