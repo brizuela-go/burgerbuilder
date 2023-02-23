@@ -1,17 +1,36 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
 generator client {
     provider = "prisma-client-js"
 }
 
-datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+model Ingredient {
+    id               String             @id @default(uuid())
+    name             String             @unique
+    quantity         Int
+    icon             String
+    BurgerIngredient BurgerIngredient[]
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Burger {
+    id          String             @id @default(uuid())
+    name        String             @unique
+    price       Int
+    ingredients BurgerIngredient[]
+}
+
+model BurgerIngredient {
+    id           String     @id @default(uuid())
+    burger       Burger     @relation(fields: [burgerId], references: [id])
+    burgerId     String
+    ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+    ingredientId String
+    quantity     Int
+    icon         String
 }
