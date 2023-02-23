@@ -17,14 +17,19 @@ const IngredientForm = () => {
       quantity,
       icon,
     };
-    const res = await axios.post("/api/ingredients", data);
+    const res = await axios.post(
+      "https://burgerbuilder-two.vercel.app/api/ingredients",
+      data
+    );
     console.log(res.data);
 
     Router.reload();
   };
 
   const handleDelete = async (id: string) => {
-    const res = await axios.delete(`/api/ingredients/${id}`);
+    const res = await axios.delete(
+      `https://burgerbuilder-two.vercel.app/api/ingredients/${id}`
+    );
     console.log(res.data);
     Router.reload();
   };

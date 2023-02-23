@@ -10,9 +10,12 @@ type Props = {
 
 const IngredientCard = (props: Props) => {
   const handleDelete = (id: string) => async () => {
-    const res = await fetch(`/api/ingredients/${id}`, {
-      method: "DELETE",
-    });
+    const res = await fetch(
+      `https://burgerbuilder-two.vercel.app/api/ingredients/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
     const data = await res.json();
     console.log(data);
 

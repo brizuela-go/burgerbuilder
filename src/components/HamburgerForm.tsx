@@ -24,7 +24,10 @@ export default function HamburgerForm({
       price,
       ingredients: selectedIngredients,
     };
-    const res = await axios.post("/api/burgers", data);
+    const res = await axios.post(
+      "https://burgerbuilder-two.vercel.app/api/burgers",
+      data
+    );
     console.log(res.data);
 
     Router.push("/");
