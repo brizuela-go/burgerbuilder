@@ -4,7 +4,7 @@ import { IIngredient } from "burger/interfaces/IIngredient";
 import Link from "next/link";
 import React from "react";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch(
     "https://burgerbuilder-two.vercel.app/api/ingredients"
   );

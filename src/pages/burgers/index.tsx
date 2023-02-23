@@ -3,7 +3,7 @@ import { IIngredient } from "burger/interfaces/IIngredient";
 import HamburgerForm from "burger/components/HamburgerForm";
 import Head from "next/head";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res2 = await fetch(
     "https://burgerbuilder-two.vercel.app/api/ingredients"
   );

@@ -7,7 +7,7 @@ import Link from "next/link";
 
 import HamburgerCard from "../components/HamburgerCard";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await axios.get(
     "https://burgerbuilder-two.vercel.app/api/burgers"
   );
