@@ -28,7 +28,9 @@ export default async function handler(
     if (existingIngredient) {
       return res
         .status(400)
-        .json({ error: `Ingredient with name ${name} already exists` });
+        .json({
+          message: `Ingredient with name ${icon} ${name} already exists`,
+        });
     }
 
     try {
@@ -37,7 +39,7 @@ export default async function handler(
       });
       return res.status(201).json(ingredient);
     } catch (error) {
-      return res.status(500).json({ message: "Something went wrong" });
+      return res.status(500).json({ message: error });
     }
   }
 

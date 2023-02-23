@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const IngredientForm = () => {
   const [name, setName] = useState("");
@@ -23,13 +24,28 @@ const IngredientForm = () => {
     );
 
     if (res.status === 201) {
-      alert(`Ingredient ${icon} ${name} added!`);
-      Router.reload;
+      toast.success("Ingredient added successfully!");
+      Router.reload();
     }
+
+    if (res.status === 400) {
+      toast.error(`Error: ${res.data.message}`);
+    }
+
+    if (res.status === 500) {
+      toast.error(`Error: ${res.data.message}`);
+    }
+
+    setName("");
+    setQuantity(0);
+    setIcon("");
+
+    return res;
   };
 
   return (
     <>
+      <Toaster />
       <div className="flex items-center justify-center">
         <form
           className="flex flex-col items-center justify-center gap-7 rounded-lg bg-white p-5 shadow-xl"
