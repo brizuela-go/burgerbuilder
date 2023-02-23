@@ -30,8 +30,8 @@ const IngredientForm = () => {
           return `Ingredient with name: ${icon} ${name} added!`;
         },
         error: (err) => {
-          console.log(err.data.message);
-          return `${err.data.message}`;
+          console.log(err);
+          return `${err}`;
         },
       }
     );
