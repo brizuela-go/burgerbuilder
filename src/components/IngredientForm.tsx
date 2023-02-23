@@ -29,9 +29,9 @@ const IngredientForm = () => {
           Router.reload();
           return `Ingredient with name: ${icon} ${name} added!`;
         },
-        error: (err) => {
-          console.log(err);
-          return `${err}`;
+        error: (data) => {
+          console.log(data.message);
+          return `${data.message}`;
         },
       }
     );
