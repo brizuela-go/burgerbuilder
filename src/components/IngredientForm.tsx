@@ -23,24 +23,14 @@ const IngredientForm = () => {
       data
     );
 
-    if (res.status === 201) {
-      toast.success("Ingredient added successfully!");
-      Router.reload();
-    }
-
-    if (res.status === 400) {
-      toast.error(`Error: ${res.data.message}`);
-    }
-
-    if (res.status === 500) {
-      toast.error(`Error: ${res.data.message}`);
-    }
+    toast.promise(res.data, {
+      loading: `Ingredient with ${icon} ${name} is being added...`,
+      success: `Ingredient with ${icon} ${name} added successfully!`,
+      error: `Error adding ingredient with ${icon} ${name}! Error: ${res.data.message}}`,
+    });
 
     setName("");
-    setQuantity(0);
     setIcon("");
-
-    return res;
   };
 
   return (
