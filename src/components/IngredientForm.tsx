@@ -21,17 +21,18 @@ const IngredientForm = () => {
       "https://burgerbuilder-two.vercel.app/api/ingredients",
       data
     );
-    console.log(res.data);
+    if (res.status === 201) {
+      alert("Ingredient created!");
+      Router.push("/");
+    }
 
-    Router.reload();
-  };
+    if (res.status === 500) {
+      alert(`Error: ${res.data.message}`);
+    }
 
-  const handleDelete = async (id: string) => {
-    const res = await axios.delete(
-      `https://burgerbuilder-two.vercel.app/api/ingredients/${id}`
-    );
-    console.log(res.data);
-    Router.reload();
+    if (res.status === 400) {
+      alert(`Error: ${res.data.message}`);
+    }
   };
 
   return (

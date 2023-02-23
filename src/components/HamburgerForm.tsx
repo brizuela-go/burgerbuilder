@@ -28,9 +28,19 @@ export default function HamburgerForm({
       "https://burgerbuilder-two.vercel.app/api/burgers",
       data
     );
-    console.log(res.data);
 
-    Router.push("/");
+    if (res.status === 201) {
+      alert("Burger created!");
+      Router.push("/");
+    }
+
+    if (res.status === 500) {
+      alert(`Error: ${res.data.message}`);
+    }
+
+    if (res.status === 400) {
+      alert(`Error: ${res.data.message}`);
+    }
   };
 
   return (
