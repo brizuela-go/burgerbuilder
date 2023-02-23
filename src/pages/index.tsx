@@ -8,10 +8,10 @@ import Link from "next/link";
 import HamburgerCard from "../components/HamburgerCard";
 
 export async function getStaticProps() {
-  const res = await axios.get("https://burgerbuilder.vercel.app/api/burgers");
+  const res = await axios.get("api/burgers");
   const burgers = await res.data;
 
-  const res2 = await axios.get("https://burgerbuilder.vercel.app/api/burgers");
+  const res2 = await axios.get("api/burgers");
   const ingredients = await res2.data;
 
   return {
