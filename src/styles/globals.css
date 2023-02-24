@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  @apply bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400;
+  @apply bg-gradient-to-bl from-indigo-200 via-fuchsia-50 to-indigo-200;
 }
 
 input {
