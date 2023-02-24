@@ -35,7 +35,9 @@ export default function HamburgerForm({
           return "🍔 Burger created!";
         },
         error: (err) => {
-          console.log(err);
+          if (err.response.status === 500) {
+            return `Either the quantiy of the ingredients is not enough, or it exceeds the available quantity.`;
+          }
           return `Error: ${err.response.data.error}`;
         },
       }
