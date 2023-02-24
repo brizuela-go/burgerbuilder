@@ -36,7 +36,7 @@ export default function HamburgerForm({
         },
         error: (err) => {
           if (err.response.status === 500) {
-            return `Either the quantiy of the ingredients is not enough, or it exceeds the available quantity.`;
+            return `Either the quantity of the ingredients is not enough, it exceeds the available quantity or you haven't selected more than 2 ingredients. `;
           }
           return `Error: ${err.response.data.error}`;
         },
