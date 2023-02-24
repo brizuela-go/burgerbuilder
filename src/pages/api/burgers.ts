@@ -59,7 +59,14 @@ export default async function handler(
             if (ingredientDb.quantity < quantity) {
               return res
                 .status(400)
-                .json({ error: `Not enough ${name} available` });
+                .json({ error: `Not enough ${icon} ${name} available` });
+            }
+
+            // Check if the quantity is less than 1
+            if (quantity < 1) {
+              return res.status(400).json({
+                error: `Quantity of ${icon} ${name} must be at least 1`,
+              });
             }
 
             // Update the quantity of the ingredient
@@ -77,23 +84,33 @@ export default async function handler(
         )
       );
 
-      // Create the burger
-      const newBurger = await prisma.burger.create({
-        data: {
-          name,
-          price,
-          ingredients: {
-            createMany: {
-              data: ingredientQuantities,
+      // Check if the user did not enter any ingredients
+      if (ingredientQuantities.length < 2) {
+        return res
+          .status(400)
+          .json({ error: "You must select at least 2 ingredients" });
+      }
+
+      // Check if there are any erros with the ingredients
+      if (!ingredientQuantities.some((ingredient) => ingredient.error)) {
+        // Create the burger
+        const newBurger = await prisma.burger.create({
+          data: {
+            name,
+            price,
+            ingredients: {
+              createMany: {
+                data: ingredientQuantities,
+              },
             },
           },
-        },
-        include: {
-          ingredients: true,
-        },
-      });
+          include: {
+            ingredients: true,
+          },
+        });
 
-      return res.status(201).json(newBurger);
+        return res.status(201).json(newBurger);
+      }
     } catch (error) {
       return res.status(500).json({ error });
     }

@@ -21,7 +21,10 @@ const HamburgerCard = ({
           <div key={burger.id} className="rounded-lg bg-white p-4 shadow-lg">
             <h2 className="text-2xl font-bold">🍔 {burger.name}</h2>
             {burger.ingredients.map((ingredient, i) => (
-              <ul className="gap-4 space-y-2 text-center">
+              <ul
+                className="gap-4 space-y-2 text-center"
+                key={`ul-${ingredient.id}`}
+              >
                 <li key={ingredient.id}>{ingredient.name}</li>
                 <li key={i}>
                   {ingredient.icon} - {ingredient.quantity}

@@ -64,10 +64,14 @@ export default async function handler(
       return res
         .status(200)
         .json({ message: `Ingredient with name "${ingredient.name}" deleted` });
-    } catch (error) {
+    } catch (error: any) {
+      if (error.code === "P2003") {
+        return res.status(400).json({
+          message: `Ingredient is in use and cannot be deleted. 🍔 Please remove the burger, or the burgers that are using it first.`,
+        });
+      }
       return res.status(500).json({ message: "Something went wrong" });
     }
   }
-
   return res.status(405).json({ message: "Method not allowed" });
 }

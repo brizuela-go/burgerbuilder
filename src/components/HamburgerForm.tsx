@@ -3,6 +3,7 @@ import axios from "axios";
 import IngredientCheckbox from "../components/IngredientCheckbox";
 import { IIngredient } from "../interfaces/IIngredient";
 import { useRouter } from "next/router";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function HamburgerForm({
   ingredients,
@@ -24,27 +25,26 @@ export default function HamburgerForm({
       price,
       ingredients: selectedIngredients,
     };
-    const res = await axios.post(
-      "https://burgerbuilder-two.vercel.app/api/burgers",
-      data
+
+    toast.promise(
+      axios.post("https://burgerbuilder-two.vercel.app/api/burgers", data),
+      {
+        loading: "Creating 🍔 burger...",
+        success: (data) => {
+          Router.push("/");
+          return "🍔 Burger created!";
+        },
+        error: (err) => {
+          console.log(err);
+          return `Error: ${err.response.data.error}`;
+        },
+      }
     );
-
-    if (res.status === 201) {
-      alert("Burger created!");
-      Router.push("/");
-    }
-
-    if (res.status === 500) {
-      alert(`Error: ${res.data.message}`);
-    }
-
-    if (res.status === 400) {
-      alert(`Error: ${res.data.message}`);
-    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <Toaster />
       <div>
         <label htmlFor="name">Name:</label>
         <input
