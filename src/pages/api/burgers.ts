@@ -92,7 +92,13 @@ export default async function handler(
       }
 
       // Check if there are any erros with the ingredients
-      if (!ingredientQuantities.some((ingredient) => ingredient.error)) {
+      if (ingredientQuantities.some((ingredient) => ingredient.error)) {
+        return res
+          .status(400)
+          .json({
+            error: ingredientQuantities.map((ingredient) => ingredient.error),
+          });
+      } else {
         // Create the burger
         const newBurger = await prisma.burger.create({
           data: {
