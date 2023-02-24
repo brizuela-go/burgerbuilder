@@ -1,4 +1,9 @@
-# Create T3 App
+# Burger Builder
+
+<!-- image from public/3dburger.webp -->
+![3dburger](public/3dburger.webp)
+
+## Create T3 App
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
@@ -9,10 +14,10 @@ We try to keep this project as simple as possible, so you can start with just th
 If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
 
 - [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
+- [NextAuth.js](https://next-auth.js.org) (not yet implemented)
 - [Prisma](https://prisma.io)
 - [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- [tRPC](https://trpc.io) (not used in this project, should've though, maybe next time)
 
 ## Learn More
 
