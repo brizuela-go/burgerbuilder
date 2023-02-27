@@ -32,6 +32,10 @@ const Home: NextPage<Props> = ({ ingredients }) => {
         </title>
         <meta name="description" content="Manage Ingredients" />
         <link rel="icon" href="/favicon.ico" />
+        {/* icon for apple ios */}
+        <link rel="apple-touch-icon" href="/favicon.ico" />
+        {/* icon for android */}
+        <link rel="icon" type="image/png" href="/favicon.ico" />
       </Head>
       <main className="mt-32 block items-center justify-center text-center">
         <h1 className="mb-20 text-center text-5xl font-extrabold tracking-tight text-black sm:text-[4rem]">

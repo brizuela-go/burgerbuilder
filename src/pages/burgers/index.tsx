@@ -26,9 +26,13 @@ const Home: NextPage<Props> = ({ ingredients }) => {
   return (
     <>
       <Head>
-        <title>🍔 Create Burger</title>
+        <title>Create Burger</title>
         <meta name="description" content="Create your own burger" />
         <link rel="icon" href="/favicon.ico" />
+        {/* icon for apple ios */}
+        <link rel="apple-touch-icon" href="/favicon.ico" />
+        {/* icon for android */}
+        <link rel="icon" type="image/png" href="/favicon.ico" />
       </Head>
       <main className="my-20 flex flex-col items-center justify-center  ">
         <h1 className="mb-20 text-center text-5xl font-extrabold tracking-tight text-black sm:text-[4rem]">
