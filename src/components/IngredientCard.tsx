@@ -11,8 +11,15 @@ type Props = {
 };
 
 const IngredientCard = (props: Props) => {
+  const initialOpenStates = Array(props.ingredients.length).fill(true);
+
   const [openStates, setOpenStates] = useState<boolean[]>([]);
+  const [editedIngredients, setEditedIngredients] = useState<{
+    [id: string]: number;
+  }>({});
   const cancelButtonRef = useRef(null);
+  const [editState, setEditState] = useState<boolean>(false);
+  const [disableds, setDisableds] = useState<boolean[]>(initialOpenStates);
 
   const handleDeleteModal =
     (ingredientId: string, index: number) => async () => {
@@ -45,6 +52,46 @@ const IngredientCard = (props: Props) => {
       newOpenStates[index] = true;
       return newOpenStates;
     });
+  };
+
+  const handleQuantityChange =
+    (ingredientId: string, index: number) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = Number(event.target.value);
+      setEditedIngredients((prevEditedIngredients) => ({
+        ...prevEditedIngredients,
+        [ingredientId]: value,
+      }));
+      // setDisableds previous values to true and then set the current index to false
+      setDisableds((prevDisableds) => {
+        const newDisableds = [...prevDisableds];
+        newDisableds[index] = !value;
+        return newDisableds;
+      });
+    };
+
+  const handleSaveButtonClick = (ingredientId: string) => async () => {
+    const quantity = editedIngredients[ingredientId];
+
+    if (quantity) {
+      toast.promise(
+        axios.put(
+          `https://burgerbuilder-two.vercel.app/api/ingredients/${ingredientId}`,
+          { quantity }
+        ),
+        {
+          loading: "Saving...",
+          success: (res) => {
+            Router.reload();
+            return `${res.data.icon} ${res.data.name} ingredient updated to ${res.data.quantity}`;
+          },
+          error: (err) => {
+            console.log(err);
+            return `${err.response.data.message}`;
+          },
+        }
+      );
+    }
   };
 
   return (
@@ -83,17 +130,64 @@ const IngredientCard = (props: Props) => {
               <p className="text-2xl" key={`p1--${index}`}>
                 {ingredient.icon}
               </p>
-              <p key={`p2--${index}`}>{ingredient.quantity}</p>
-              <button
-                key={`button--${index}`}
-                className="rounded-lg bg-red-500 p-2 text-white transition duration-100 ease-in-out  hover:bg-red-700 hover:shadow-xl  "
-                onClick={() => {
-                  console.log(ingredient.id);
-                  handleOpenModal(index);
-                }}
-              >
-                Delete
-              </button>
+              {editState ? (
+                <>
+                  <input
+                    key={`input--${index}`}
+                    type="number"
+                    value={
+                      editedIngredients[ingredient.id] || ingredient.quantity
+                    }
+                    min="1"
+                    max="100"
+                    onChange={handleQuantityChange(ingredient.id, index)}
+                  />
+                  <div className="flex justify-center gap-x-3">
+                    <button
+                      onClick={() => {
+                        setEditState(!editState);
+                      }}
+                      className=" rounded-lg bg-slate-700 px-5 py-2 text-center text-sm   text-white  transition duration-100 ease-in-out hover:bg-slate-800 hover:shadow-xl "
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      key={`button--${index}`}
+                      className="rounded-lg bg-green-500 py-2 px-5 text-center text-sm   text-white  transition duration-100 ease-in-out hover:bg-green-700 hover:shadow-xl disabled:cursor-not-allowed disabled:bg-slate-400 disabled:opacity-50"
+                      disabled={disableds[index]}
+                      onClick={() => {
+                        handleSaveButtonClick(ingredient.id)();
+                      }}
+                    >
+                      Save
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p key={`p2--${index}`}>{ingredient.quantity}</p>
+                  <div className="flex justify-center gap-x-3">
+                    <button
+                      onClick={() => {
+                        setEditState(!editState);
+                      }}
+                      className={`rounded-lg bg-blue-700 px-5 py-2 text-center text-sm   text-white  transition duration-100 ease-in-out hover:bg-blue-800 hover:shadow-xl `}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      key={`button--${index}`}
+                      className="rounded-lg bg-red-500 py-2 px-5 text-center text-sm   text-white  transition duration-100 ease-in-out hover:bg-red-700 hover:shadow-xl  "
+                      onClick={() => {
+                        console.log(ingredient.id);
+                        handleOpenModal(index);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </>
         ))}

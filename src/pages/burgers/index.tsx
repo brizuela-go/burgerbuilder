@@ -2,6 +2,7 @@ import React from "react";
 import { IIngredient } from "burger/interfaces/IIngredient";
 import HamburgerForm from "burger/components/HamburgerForm";
 import Head from "next/head";
+import Link from "next/link";
 
 export async function getServerSideProps() {
   const res2 = await fetch(
@@ -24,12 +25,18 @@ const Home = ({ ingredients }: { ingredients: IIngredient[] }) => {
         <meta name="description" content="Create your own burger" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="mt-20 flex flex-col items-center justify-center  ">
+      <main className="my-20 flex flex-col items-center justify-center  ">
         <h1 className="mb-20 text-center text-5xl font-extrabold tracking-tight text-black sm:text-[4rem]">
           Create Burger
         </h1>
 
         <HamburgerForm ingredients={ingredients} />
+
+        <Link href="/">
+          <button className="mt-16 text-center text-2xl font-extrabold tracking-tight text-black underline ">
+            Back to Burgers
+          </button>
+        </Link>
       </main>
     </>
   );

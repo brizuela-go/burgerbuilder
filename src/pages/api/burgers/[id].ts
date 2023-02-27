@@ -38,15 +38,10 @@ export default async function handler(
     }
 
     try {
-      // Disconnect all ingredients from the burger
-      await Promise.all(
-        existingBurger.ingredients.map((ingredient) =>
-          prisma.burger.update({
-            where: { id: existingBurger.id },
-            data: { ingredients: { disconnect: { id: ingredient.id } } },
-          })
-        )
-      );
+      // Delete the relationship between the burger and the ingredients in the BurgerIngredients table
+      await prisma.burgerIngredient.deleteMany({
+        where: { burgerId: String(id) },
+      });
 
       // Delete the burger
       const deletedBurger = await prisma.burger.delete({
@@ -57,7 +52,7 @@ export default async function handler(
         .status(200)
         .json({ message: `😋 Yum. "${deletedBurger.name}" burger eaten` });
     } catch (error) {
-      return res.status(500).json({ message: error });
+      return res.status(500).json({ message: "Something went wrong" });
     }
   }
 

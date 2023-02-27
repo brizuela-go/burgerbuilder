@@ -28,6 +28,7 @@ const HamburgerCard = ({ burgers }: Props) => {
           return `${res.data.message}`;
         },
         error: (err) => {
+          console.log(err);
           return `${err.response.data.message}`;
         },
       }
@@ -51,9 +52,7 @@ const HamburgerCard = ({ burgers }: Props) => {
   return (
     <>
       <Toaster />
-      {burgers.length === 0 && (
-        <p className=" mt-12">No burgers created yet 😔</p>
-      )}
+      {burgers.length === 0 && <p className=" mt-12">Out of burgers 😔</p>}
       <div className="flex flex-col  gap-10  sm:flex-row ">
         {burgers.map((burger, index) => (
           <div key={burger.id} className="rounded-lg bg-white p-4 shadow-lg">

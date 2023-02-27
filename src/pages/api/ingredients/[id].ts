@@ -41,7 +41,7 @@ export default async function handler(
       });
       return res.status(200).json(ingredient);
     } catch (error) {
-      return res.status(500).json({ message: "Something went wrong" });
+      return res.status(500).json({ message: error });
     }
   }
 
@@ -61,9 +61,9 @@ export default async function handler(
       const ingredient = await prisma.ingredient.delete({
         where: { id: String(id) },
       });
-      return res
-        .status(200)
-        .json({ message: `Ingredient with name "${ingredient.name}" deleted` });
+      return res.status(200).json({
+        message: `Ingredient with name ${ingredient.icon} "${ingredient.name}" deleted`,
+      });
     } catch (error: any) {
       if (error.code === "P2003") {
         return res.status(400).json({
