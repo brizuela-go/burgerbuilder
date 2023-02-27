@@ -27,7 +27,9 @@ const Home: NextPage<Props> = ({ ingredients }) => {
   return (
     <>
       <Head>
-        <title>Manage Ingredients {} </title>
+        <title>
+          📝 Manage Ingredients {ingredients.map(({ icon }) => icon)}{" "}
+        </title>
         <meta name="description" content="Manage Ingredients" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
