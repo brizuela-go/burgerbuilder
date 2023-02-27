@@ -71,9 +71,10 @@ export default function HamburgerForm({
       </div>
       <div className="text-center">
         <p>Select ingredients:</p>
-        {ingredients.map((ingredient: IIngredient) => (
+        {ingredients.map((ingredient: IIngredient, index) => (
           <IngredientCheckbox
-            key={ingredient.id}
+            key={index}
+            index={index}
             ingredient={ingredient}
             onChange={setSelectedIngredients}
           />

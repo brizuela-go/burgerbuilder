@@ -1,19 +1,26 @@
 import { useState } from "react";
 import { IIngredient } from "../interfaces/IIngredient";
 
-interface IngredientCheckboxProps {
+type IngredientCheckboxProps = {
   ingredient: IIngredient;
   onChange: Function;
-}
+  index: number;
+};
 
 const IngredientCheckbox = ({
   ingredient,
   onChange,
+  index,
 }: IngredientCheckboxProps) => {
+  const intitialChecks = Array(ingredient.quantity).fill(false);
+
   const [quantity, setQuantity] = useState(0);
+  const [checks, setChecks] = useState<boolean[]>(intitialChecks);
+  const [showQuantity, setShowQuantity] = useState<boolean>(false);
 
   const handleChange = (event: { target: { checked: any } }) => {
     const checked = event.target.checked;
+
     if (checked) {
       onChange((prev: any) => [
         ...prev,
@@ -24,10 +31,17 @@ const IngredientCheckbox = ({
           icon: ingredient.icon,
         },
       ]);
+      setChecks(Array(quantity).fill(true));
+      setShowQuantity(true);
     } else {
-      onChange((prev: any[]) =>
-        prev.filter((item: { id: any }) => item.id !== ingredient.id)
-      );
+      onChange((prev: any[]) => {
+        const filtered = prev.filter(
+          (item: { id: any }) => item.id !== ingredient.id
+        );
+        setChecks(Array(filtered.length).fill(true));
+        setShowQuantity(filtered.length > 0);
+        return filtered;
+      });
     }
   };
 
@@ -48,11 +62,13 @@ const IngredientCheckbox = ({
       <input type="checkbox" onChange={handleChange} />
       {ingredient.name}
       {ingredient.icon}
-      <input
-        type="number"
-        value={quantity || ""}
-        onChange={handleQuantityChange}
-      />
+      {showQuantity && (
+        <input
+          type="number"
+          value={quantity || ""}
+          onChange={handleQuantityChange}
+        />
+      )}
     </div>
   );
 };
