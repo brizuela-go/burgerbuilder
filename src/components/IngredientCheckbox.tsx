@@ -10,7 +10,6 @@ type IngredientCheckboxProps = {
 const IngredientCheckbox = ({
   ingredient,
   onChange,
-  index,
 }: IngredientCheckboxProps) => {
   const intitialChecks = Array(ingredient.quantity).fill(false);
 
