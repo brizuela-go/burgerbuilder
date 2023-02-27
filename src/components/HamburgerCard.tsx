@@ -53,9 +53,12 @@ const HamburgerCard = ({ burgers }: Props) => {
     <>
       <Toaster />
       {burgers.length === 0 && <p className=" mt-12">Out of burgers 😔</p>}
-      <div className="flex flex-col  gap-10  sm:flex-row ">
+      <div className="flex flex-col gap-20 text-center sm:flex-row">
         {burgers.map((burger, index) => (
-          <div key={burger.id} className="rounded-lg bg-white p-4 shadow-lg">
+          <div
+            key={burger.id}
+            className="space-y-4 rounded-lg bg-white p-6 shadow-lg "
+          >
             <DeleteModal
               key={`delete-modal-${burger.id}`}
               open={openStates[index] || false}
@@ -74,9 +77,10 @@ const HamburgerCard = ({ burgers }: Props) => {
               }}
             />
             <h2 className="text-2xl font-bold">🍔 {burger.name}</h2>
+            <hr className=" my-2 h-[4px]  rounded border-0 bg-gray-700"></hr>
             {burger.ingredients.map((ingredient, i) => (
               <ul
-                className="gap-4 space-y-2 text-center"
+                className=" gap-4 space-y-2 text-center"
                 key={`ul-${ingredient.id}`}
               >
                 <li key={ingredient.id}>{ingredient.name}</li>
@@ -85,13 +89,11 @@ const HamburgerCard = ({ burgers }: Props) => {
                 </li>
               </ul>
             ))}
+            <div className=""></div>
             <button
               key={`button--${index}`}
-              className="rounded-lg bg-red-500 p-2 text-white transition duration-100 ease-in-out  hover:bg-red-700 hover:shadow-xl  "
-              onClick={() => {
-                console.log(burger.id);
-                handleOpenModal(index);
-              }}
+              className=" rounded-lg bg-gradient-to-r from-red-400 via-red-500 to-red-600 py-1 px-5 text-white shadow-xl transition  duration-100 ease-in-out hover:bg-gradient-to-tr hover:from-red-600 hover:via-red-700 hover:to-amber-600 hover:shadow-2xl "
+              onClick={() => handleOpenModal(index)}
             >
               Eat
             </button>
