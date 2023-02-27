@@ -3,6 +3,7 @@ import { IIngredient } from "burger/interfaces/IIngredient";
 import HamburgerForm from "burger/components/HamburgerForm";
 import Head from "next/head";
 import Link from "next/link";
+import { NextPage } from "next";
 
 export async function getServerSideProps() {
   const res2 = await fetch(
@@ -17,7 +18,11 @@ export async function getServerSideProps() {
   };
 }
 
-const Home = ({ ingredients }: { ingredients: IIngredient[] }) => {
+type Props = {
+  ingredients: IIngredient[];
+};
+
+const Home: NextPage<Props> = ({ ingredients }) => {
   return (
     <>
       <Head>
