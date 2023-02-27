@@ -6,10 +6,10 @@ import Router from "next/router";
 
 import DeleteModal from "./DeleteModal";
 
-import { Burger } from "burger/interfaces/IBurger";
+import { IBurger } from "burger/interfaces/IBurger";
 
 type Props = {
-  burgers: Burger[];
+  burgers: IBurger[];
 };
 
 const HamburgerCard = ({ burgers }: Props) => {

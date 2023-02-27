@@ -6,6 +6,7 @@ import axios from "axios";
 import Link from "next/link";
 
 import HamburgerCard from "../components/HamburgerCard";
+import { IBurger } from "burger/interfaces/IBurger";
 
 export async function getServerSideProps() {
   const res = await axios.get(
@@ -26,7 +27,11 @@ export async function getServerSideProps() {
   };
 }
 
-const Home: NextPage = ({ burgers, ingredients }: any) => {
+type Props = {
+  burgers: IBurger[];
+};
+
+const Home: NextPage<Props> = ({ burgers }) => {
   return (
     <>
       <Head>
@@ -73,7 +78,7 @@ const Home: NextPage = ({ burgers, ingredients }: any) => {
             </button>
           </Link>
           <div id="see-burgers" className=" my-32">
-            <HamburgerCard burgers={burgers} ingredients={ingredients} />
+            <HamburgerCard burgers={burgers} />
           </div>
         </div>
       </main>

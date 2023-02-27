@@ -1,6 +1,6 @@
 import { IIngredient } from "./IIngredient";
 
-export interface Burger {
+export interface IBurger {
   id: string;
   name: string;
   ingredients: IIngredient[];
