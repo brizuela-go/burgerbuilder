@@ -139,7 +139,7 @@ const IngredientCard = (props: Props) => {
                       editedIngredients[ingredient.id] || ingredient.quantity
                     }
                     min="1"
-                    max="100"
+                    max="1000"
                     onChange={handleQuantityChange(ingredient.id, index)}
                   />
                   <div className="flex justify-center gap-x-3">
