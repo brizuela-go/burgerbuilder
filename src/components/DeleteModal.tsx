@@ -2,11 +2,16 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
+type Characteristics = {
+  [key: string]: string;
+};
+
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
   cancelButtonRef: React.MutableRefObject<null>;
   handleDeleteModal: () => void;
+  characteristics: Characteristics;
 };
 
 const DeleteModal = ({
@@ -14,7 +19,9 @@ const DeleteModal = ({
   setOpen,
   cancelButtonRef,
   handleDeleteModal,
+  characteristics,
 }: Props) => {
+  const { name, action } = characteristics;
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -60,11 +67,12 @@ const DeleteModal = ({
                         as="h3"
                         className="text-lg font-medium leading-6 text-gray-900"
                       >
-                        Delete Ingredient
+                        {action!.charAt(0).toUpperCase() + action!.slice(1)}{" "}
+                        {name!.charAt(0).toUpperCase() + name!.slice(1)}
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Are you sure you want to delete this ingredient?
+                          Are you sure you want to {action} this {name}?
                         </p>
                       </div>
                     </div>

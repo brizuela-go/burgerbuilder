@@ -28,6 +28,7 @@ export default async function handler(
     // Check if the burger exists
     const existingBurger = await prisma.burger.findUnique({
       where: { id: String(id) },
+      include: { ingredients: true },
     });
 
     if (!existingBurger) {
@@ -37,14 +38,26 @@ export default async function handler(
     }
 
     try {
-      const burger = await prisma.burger.delete({
+      // Disconnect all ingredients from the burger
+      await Promise.all(
+        existingBurger.ingredients.map((ingredient) =>
+          prisma.burger.update({
+            where: { id: existingBurger.id },
+            data: { ingredients: { disconnect: { id: ingredient.id } } },
+          })
+        )
+      );
+
+      // Delete the burger
+      const deletedBurger = await prisma.burger.delete({
         where: { id: String(id) },
       });
+
       return res
         .status(200)
-        .json({ message: `"${burger.name}" burger deleted ` });
+        .json({ message: `😋 Yum. "${deletedBurger.name}" burger eaten` });
     } catch (error) {
-      return res.status(500).json({ message: "Something went wrong" });
+      return res.status(500).json({ message: error });
     }
   }
 

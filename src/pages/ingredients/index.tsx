@@ -37,7 +37,7 @@ const Home = ({ ingredients }: any) => {
         </h3>
       </div>
       <Link href="/">
-        <button className="mt-20 text-center text-2xl font-extrabold tracking-tight text-black underline ">
+        <button className="my-20 text-center text-2xl font-extrabold tracking-tight text-black underline ">
           Back to Burgers
         </button>
       </Link>

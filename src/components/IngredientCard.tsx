@@ -16,16 +16,21 @@ const IngredientCard = (props: Props) => {
 
   const handleDeleteModal =
     (ingredientId: string, index: number) => async () => {
-      toast.promise(axios.delete(`https://burgerbuilder-two.vercel.app/api/ingredients/${ingredientId}`), {
-        loading: "Deleting...",
-        success: (res) => {
-          Router.reload();
-          return `${res.data.message}`;
-        },
-        error: (err) => {
-          return `${err.response.data.message}`;
-        },
-      });
+      toast.promise(
+        axios.delete(
+          `https://burgerbuilder-two.vercel.app/api/ingredients/${ingredientId}`
+        ),
+        {
+          loading: "Deleting...",
+          success: (res) => {
+            Router.reload();
+            return `${res.data.message}`;
+          },
+          error: (err) => {
+            return `${err.response.data.message}`;
+          },
+        }
+      );
 
       setOpenStates((prevOpenStates) => {
         const newOpenStates = [...prevOpenStates];
@@ -63,6 +68,10 @@ const IngredientCard = (props: Props) => {
               }}
               cancelButtonRef={cancelButtonRef}
               handleDeleteModal={handleDeleteModal(ingredient.id, index)}
+              characteristics={{
+                name: `${ingredient.icon} ${ingredient.name} ingredient`,
+                action: "delete",
+              }}
             />
             <div
               key={`div--${ingredient.id}`}
