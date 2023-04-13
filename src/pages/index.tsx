@@ -55,7 +55,7 @@ const Home: NextPage<Props> = ({ burgers }) => {
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-2 ">
           <h1 className="text-center text-5xl font-extrabold tracking-tight text-white sm:text-[4rem]">
             <span className=" bg-gradient-to-br from-purple-400 to-pink-700  bg-clip-text text-transparent ">
-              HAMBURGRUESA
+              BURGER
             </span>{" "}
             <span className="bg-gradient-to-br from-amber-300 to-amber-700  bg-clip-text text-transparent ">
               BUILDER
